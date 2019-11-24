@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.six.dcsystem.Dao.StatisticsMapper">
+  <resultMap id="BaseResultMap" type="com.six.dcsystem.Bean.Statistics">
+    <id column="Statisticsid" jdbcType="VARCHAR" property="statisticsid" />
+    <result column="Ammeterid" jdbcType="VARCHAR" property="ammeterid" />
+    <result column="Times" jdbcType="TIMESTAMP" property="times" />
+    <result column="Totalwordcount" jdbcType="REAL" property="totalwordcount" />
+    <result column="Totalsum" jdbcType="REAL" property="totalsum" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Statisticsid, Ammeterid, Times, Totalwordcount, Totalsum
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from statistics
+    where Statisticsid = #{statisticsid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from statistics
+    where Statisticsid = #{statisticsid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.six.dcsystem.Bean.Statistics">
+    insert into statistics (Statisticsid, Ammeterid, Times, 
+      Totalwordcount, Totalsum)
+    values (#{statisticsid,jdbcType=VARCHAR}, #{ammeterid,jdbcType=VARCHAR}, #{times,jdbcType=TIMESTAMP}, 
+      #{totalwordcount,jdbcType=REAL}, #{totalsum,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.six.dcsystem.Bean.Statistics">
+    insert into statistics
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="statisticsid != null">
+        Statisticsid,
+      </if>
+      <if test="ammeterid != null">
+        Ammeterid,
+      </if>
+      <if test="times != null">
+        Times,
+      </if>
+      <if test="totalwordcount != null">
+        Totalwordcount,
+      </if>
+      <if test="totalsum != null">
+        Totalsum,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="statisticsid != null">
+        #{statisticsid,jdbcType=VARCHAR},
+      </if>
+      <if test="ammeterid != null">
+        #{ammeterid,jdbcType=VARCHAR},
+      </if>
+      <if test="times != null">
+        #{times,jdbcType=TIMESTAMP},
+      </if>
+      <if test="totalwordcount != null">
+        #{totalwordcount,jdbcType=REAL},
+      </if>
+      <if test="totalsum != null">
+        #{totalsum,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.six.dcsystem.Bean.Statistics">
+    update statistics
+    <set>
+      <if test="ammeterid != null">
+        Ammeterid = #{ammeterid,jdbcType=VARCHAR},
+      </if>
+      <if test="times != null">
+        Times = #{times,jdbcType=TIMESTAMP},
+      </if>
+      <if test="totalwordcount != null">
+        Totalwordcount = #{totalwordcount,jdbcType=REAL},
+      </if>
+      <if test="totalsum != null">
+        Totalsum = #{totalsum,jdbcType=REAL},
+      </if>
+    </set>
+    where Statisticsid = #{statisticsid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.six.dcsystem.Bean.Statistics">
+    update statistics
+    set Ammeterid = #{ammeterid,jdbcType=VARCHAR},
+      Times = #{times,jdbcType=TIMESTAMP},
+      Totalwordcount = #{totalwordcount,jdbcType=REAL},
+      Totalsum = #{totalsum,jdbcType=REAL}
+    where Statisticsid = #{statisticsid,jdbcType=VARCHAR}
+  </update>
+</mapper>

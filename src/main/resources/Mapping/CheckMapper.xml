@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.six.dcsystem.Dao.CheckMapper" >
+  <resultMap id="BaseResultMap" type="com.six.dcsystem.Bean.Check" >
+    <id column="CheckKey" property="checkkey" jdbcType="INTEGER" />
+    <result column="Checkid" property="checkid" jdbcType="VARCHAR" />
+    <result column="Meterreadingid" property="meterreadingid" jdbcType="VARCHAR" />
+    <result column="adjustment" property="adjustment" jdbcType="VARCHAR" />
+    <result column="deduction" property="deduction" jdbcType="REAL" />
+    <result column="Actual" property="actual" jdbcType="REAL" />
+    <result column="Creationtime" property="creationtime" jdbcType="TIMESTAMP" />
+    <result column="Founder" property="founder" jdbcType="VARCHAR" />
+    <result column="Updateperson" property="updateperson" jdbcType="VARCHAR" />
+    <result column="Updatetime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="Settlingmonth" property="settlingmonth" jdbcType="VARCHAR" />
+    <result column="State" property="state" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CheckKey, Checkid, Meterreadingid, adjustment, deduction, Actual, Creationtime, Founder, 
+    Updateperson, Updatetime, Settlingmonth, State
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from che
+    where CheckKey = #{checkkey,jdbcType=INTEGER}
+  </select>
+  <!--根据状态查询数据库中的信息-->
+  <select id="selecteZt" parameterType="java.lang.Integer" resultType="com.six.dcsystem.Bean.Check">
+    select <include refid="Base_Column_List"></include> from che where CheckKey = #{checkkey,jdbcType=INTEGER};
+  </select>
+  <!--查询所有数据的信息-->
+  <select id="cheadd" parameterType="com.six.dcsystem.Bean.Check" resultType="com.six.dcsystem.Bean.Check">
+    select <include refid="Base_Column_List"></include> from che
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from che
+    where CheckKey = #{checkkey,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.six.dcsystem.Bean.Check" >
+    insert into che (CheckKey, Checkid, Meterreadingid, 
+      adjustment, deduction, Actual, 
+      Creationtime, Founder, Updateperson, 
+      Updatetime, Settlingmonth, State
+      )
+    values (#{checkkey,jdbcType=INTEGER}, #{checkid,jdbcType=VARCHAR}, #{meterreadingid,jdbcType=VARCHAR}, 
+      #{adjustment,jdbcType=VARCHAR}, #{deduction,jdbcType=REAL}, #{actual,jdbcType=REAL}, 
+      #{creationtime,jdbcType=TIMESTAMP}, #{founder,jdbcType=VARCHAR}, #{updateperson,jdbcType=VARCHAR}, 
+      #{updatetime,jdbcType=TIMESTAMP}, #{settlingmonth,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.six.dcsystem.Bean.Check" >
+    insert into che
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="checkkey != null" >
+        CheckKey,
+      </if>
+      <if test="checkid != null" >
+        Checkid,
+      </if>
+      <if test="meterreadingid != null" >
+        Meterreadingid,
+      </if>
+      <if test="adjustment != null" >
+        adjustment,
+      </if>
+      <if test="deduction != null" >
+        deduction,
+      </if>
+      <if test="actual != null" >
+        Actual,
+      </if>
+      <if test="creationtime != null" >
+        Creationtime,
+      </if>
+      <if test="founder != null" >
+        Founder,
+      </if>
+      <if test="updateperson != null" >
+        Updateperson,
+      </if>
+      <if test="updatetime != null" >
+        Updatetime,
+      </if>
+      <if test="settlingmonth != null" >
+        Settlingmonth,
+      </if>
+      <if test="state != null" >
+        State,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="checkkey != null" >
+        #{checkkey,jdbcType=INTEGER},
+      </if>
+      <if test="checkid != null" >
+        #{checkid,jdbcType=VARCHAR},
+      </if>
+      <if test="meterreadingid != null" >
+        #{meterreadingid,jdbcType=VARCHAR},
+      </if>
+      <if test="adjustment != null" >
+        #{adjustment,jdbcType=VARCHAR},
+      </if>
+      <if test="deduction != null" >
+        #{deduction,jdbcType=REAL},
+      </if>
+      <if test="actual != null" >
+        #{actual,jdbcType=REAL},
+      </if>
+      <if test="creationtime != null" >
+        #{creationtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="founder != null" >
+        #{founder,jdbcType=VARCHAR},
+      </if>
+      <if test="updateperson != null" >
+        #{updateperson,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="settlingmonth != null" >
+        #{settlingmonth,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.six.dcsystem.Bean.Check" >
+    update che
+    <set >
+      <if test="checkid != null" >
+        Checkid = #{checkid,jdbcType=VARCHAR},
+      </if>
+      <if test="meterreadingid != null" >
+        Meterreadingid = #{meterreadingid,jdbcType=VARCHAR},
+      </if>
+      <if test="adjustment != null" >
+        adjustment = #{adjustment,jdbcType=VARCHAR},
+      </if>
+      <if test="deduction != null" >
+        deduction = #{deduction,jdbcType=REAL},
+      </if>
+      <if test="actual != null" >
+        Actual = #{actual,jdbcType=REAL},
+      </if>
+      <if test="creationtime != null" >
+        Creationtime = #{creationtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="founder != null" >
+        Founder = #{founder,jdbcType=VARCHAR},
+      </if>
+      <if test="updateperson != null" >
+        Updateperson = #{updateperson,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        Updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="settlingmonth != null" >
+        Settlingmonth = #{settlingmonth,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        State = #{state,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CheckKey = #{checkkey,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.six.dcsystem.Bean.Check" >
+    update che
+    set Checkid = #{checkid,jdbcType=VARCHAR},
+      Meterreadingid = #{meterreadingid,jdbcType=VARCHAR},
+      adjustment = #{adjustment,jdbcType=VARCHAR},
+      deduction = #{deduction,jdbcType=REAL},
+      Actual = #{actual,jdbcType=REAL},
+      Creationtime = #{creationtime,jdbcType=TIMESTAMP},
+      Founder = #{founder,jdbcType=VARCHAR},
+      Updateperson = #{updateperson,jdbcType=VARCHAR},
+      Updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      Settlingmonth = #{settlingmonth,jdbcType=VARCHAR},
+      State = #{state,jdbcType=VARCHAR}
+    where CheckKey = #{checkkey,jdbcType=INTEGER}
+  </update>
+</mapper>

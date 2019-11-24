@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.six.dcsystem.Dao.BaseSetMapper">
+
+    <resultMap id="BaseSetMap" type="com.six.dcsystem.Bean.BaseSet">
+        <id column="Basestationid" jdbcType="INTEGER" property="basestationid"></id>
+        <result column="Basestationlocation" jdbcType="VARCHAR" property="basestationlocation"></result>
+        <result column="Installationtime" jdbcType="TIMESTAMP" property="installationtime"></result>
+        <result column="InstallingContacts" jdbcType="VARCHAR" property="installingContacts"></result>
+        <result column="Initialnum" jdbcType="REAL" property="initialnum"></result>
+        <result column="Overhaul" jdbcType="VARCHAR" property="overhaul"></result>
+        <result column="Remarks" jdbcType="VARCHAR" property="remarks"></result>
+        <result column="MainLineNumber" jdbcType="INTEGER" property="mainLineNumber"></result>
+        <result column="Termofvalidity" jdbcType="TIMESTAMP" property="termofvalidity"></result>
+        <result column="Closingdate" jdbcType="TIMESTAMP" property="closingdate"></result>
+        <result column="Settlementid" jdbcType="VARCHAR" property="settlement.settlementid" />
+        <result column="Ammeterid" jdbcType="INTEGER" property="settlement.ammeterid" />
+        <result column="Ammeternnum" jdbcType="INTEGER" property="settlement.ammeternnum" />
+        <result column="Ammeternnum25" jdbcType="INTEGER" property="settlement.ammeternnum25" />
+        <result column="UnitPrice" jdbcType="REAL" property="settlement.unitprice" />
+        <result column="Totalcost" jdbcType="REAL" property="settlement.totalcost" />
+        <result column="LastAccountbalance" jdbcType="REAL" property="settlement.lastaccountbalance" />
+        <result column="Amountofpayment" jdbcType="REAL" property="settlement.amountofpayment" />
+        <result column="Creationtime" jdbcType="TIMESTAMP" property="settlement.creationtime" />
+        <result column="Founder" jdbcType="VARCHAR" property="settlement.founder" />
+        <result column="Updatetime" jdbcType="TIMESTAMP" property="settlement.updatetime" />
+        <result column="Updateperson" jdbcType="VARCHAR" property="settlement.updateperson" />
+        <result column="Postpone" jdbcType="VARCHAR" property="settlement.postpone" />
+        <result column="Initialvalue" jdbcType="REAL" property="settlement.initialvalue" />
+        <result column="Redescription" jdbcType="VARCHAR" property="settlement.redescription" />
+        <result column="Enclosure" jdbcType="VARCHAR" property="settlement.enclosure" />
+    </resultMap>
+
+    <sql id="selectbaseset">
+        settlement.Ammeterid
+    </sql>
+
+    <!-- 多表联查全部信息 -->
+    <select id="select" resultMap="BaseSetMap">
+        select <include refid="selectbaseset"/> from basestation left join settlement on basestation.Ammeterid = settlement.Ammeterid
+    </select>
+
+    <!-- 有条件时根据条件查，没条件时查询全部信息 -->
+    <select id="basesetsel" parameterType="java.lang.Integer" resultMap="BaseSetMap">
+        select <include refid="selectbaseset"/> from basestation left join settlement on basestation.Ammeterid = settlement.Ammeterid
+        where 1=1
+        <if test="amid != null">
+            and Ammeternnum = #{amid,jdbcType=INTEGER}
+        </if>
+    </select>
+
+</mapper>

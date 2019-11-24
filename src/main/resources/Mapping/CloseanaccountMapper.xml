@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.six.dcsystem.Dao.CloseanaccountMapper" >
+  <!-- 针对单表的查询 -->
+  <resultMap id="BaseResultMap" type="com.six.dcsystem.Bean.Closeanaccount" >
+  <id column="zhujian" property="zhujian" jdbcType="INTEGER" />
+  <result column="Tariffset" property="tariffset" jdbcType="VARCHAR" />
+  <result column="Checkid" property="checkid" jdbcType="VARCHAR" />
+  <result column="Tollmeters" property="tollmeters" jdbcType="REAL" />
+  <result column="UnitPrice" property="unitprice" jdbcType="REAL" />
+  <result column="Totalsum" property="totalsum" jdbcType="REAL" />
+  <result column="Actualcost" property="actualcost" jdbcType="REAL" />
+  <result column="Paymentmethod" property="paymentmethod" jdbcType="VARCHAR" />
+  <result column="invoices" property="invoices" jdbcType="VARCHAR" />
+  <result column="Dutyparagraph" property="dutyparagraph" jdbcType="INTEGER" />
+  <result column="Corporatename" property="corporatename" jdbcType="VARCHAR" />
+  <result column="Contactse" property="contactse" jdbcType="VARCHAR" />
+  <result column="Contacttelephone" property="contacttelephone" jdbcType="INTEGER" />
+  <result column="Openingbank" property="openingbank" jdbcType="VARCHAR" />
+  <result column="Founder" property="founder" jdbcType="VARCHAR" />
+  <result column="Creationtime" property="creationtime" jdbcType="TIMESTAMP" />
+  <result column="Updateperson" property="updateperson" jdbcType="VARCHAR" />
+  <result column="Updatetime" property="updatetime" jdbcType="TIMESTAMP" />
+</resultMap>
+
+  <resultMap id="CloSetMap" type="com.six.dcsystem.Bean.Closeanaccount">
+    <id column="zhujian" property="zhujian" jdbcType="INTEGER" />
+    <result column="Tariffset" property="tariffset" jdbcType="VARCHAR" />
+    <result column="Checkid" property="checkid" jdbcType="VARCHAR" />
+    <result column="Tollmeters" property="tollmeters" jdbcType="REAL" />
+    <result column="UnitPrice" property="unitprice" jdbcType="REAL" />
+    <result column="Totalsum" property="totalsum" jdbcType="REAL" />
+    <result column="Actualcost" property="actualcost" jdbcType="REAL" />
+    <result column="Paymentmethod" property="paymentmethod" jdbcType="VARCHAR" />
+    <result column="invoices" property="invoices" jdbcType="VARCHAR" />
+    <result column="Dutyparagraph" property="dutyparagraph" jdbcType="INTEGER" />
+    <result column="Corporatename" property="corporatename" jdbcType="VARCHAR" />
+    <result column="Contactse" property="contactse" jdbcType="VARCHAR" />
+    <result column="Contacttelephone" property="contacttelephone" jdbcType="INTEGER" />
+    <result column="Openingbank" property="openingbank" jdbcType="VARCHAR" />
+    <result column="Founder" property="founder" jdbcType="VARCHAR" />
+    <result column="Creationtime" property="creationtime" jdbcType="TIMESTAMP" />
+    <result column="Updateperson" property="updateperson" jdbcType="VARCHAR" />
+    <result column="Updatetime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="SettlementKey" jdbcType="INTEGER" property="settlement.settlementkey" />
+    <result column="Settlementid" jdbcType="VARCHAR" property="settlement.settlementid" />
+    <result column="Ammeterid" jdbcType="INTEGER" property="settlement.ammeterid" />
+    <result column="Ammeternnum" jdbcType="INTEGER" property="settlement.ammeternnum" />
+    <result column="Ammeternnum25" jdbcType="INTEGER" property="settlement.ammeternnum25" />
+    <result column="UnitPrice" jdbcType="REAL" property="settlement.unitprice" />
+    <result column="Totalcost" jdbcType="REAL" property="settlement.totalcost" />
+    <result column="LastAccountbalance" jdbcType="REAL" property="settlement.lastaccountbalance" />
+    <result column="Amountofpayment" jdbcType="REAL" property="settlement.amountofpayment" />
+    <result column="Creationtime" jdbcType="TIMESTAMP" property="settlement.creationtime" />
+    <result column="Founder" jdbcType="VARCHAR" property="settlement.founder" />
+    <result column="Updatetime" jdbcType="TIMESTAMP" property="settlement.updatetime" />
+    <result column="Updateperson" jdbcType="VARCHAR" property="settlement.updateperson" />
+    <result column="Postpone" jdbcType="VARCHAR" property="settlement.postpone" />
+    <result column="Initialvalue" jdbcType="REAL" property="settlement.initialvalue" />
+    <result column="Redescription" jdbcType="VARCHAR" property="settlement.redescription" />
+    <result column="Enclosure" jdbcType="VARCHAR" property="settlement.enclosure" />
+    <result column="zhuangtai" jdbcType="VARCHAR" property="settlement.zhuangtai"/>
+  </resultMap>
+
+  <!-- 单表的所有字段 -->
+  <sql id="Base_Column_List" >
+    zhujian, Tariffset, Checkid, Tollmeters, UnitPrice, Totalsum, Actualcost, Paymentmethod,
+    invoices, Dutyparagraph, Corporatename, Contactse, Contacttelephone, Openingbank,
+    Founder, Creationtime, Updateperson, Updatetime
+  </sql>
+
+  <!-- 多表的所有字段 -->
+  <sql id="BaseCol">
+    zhujian, Tariffset, Checkid, Tollmeters, closeanaccount.UnitPrice as closeanaccountUnitPrice, Totalsum, Actualcost, Paymentmethod,
+    invoices, Dutyparagraph, Corporatename, Contactse, Contacttelephone, Openingbank,
+    closeanaccount.Founder as closeanaccountFounder, closeanaccount.Creationtime as closeanaccountCreationtime, closeanaccount.Updateperson as closeanaccountUpdateperson, closeanaccount.Updatetime as closeanaccountUpdatetime,
+    SettlementKey,Settlementid, Ammeterid, Ammeternnum, Ammeternnum25, settlement.UnitPrice as settlementUnitPrice, Totalcost, LastAccountbalance,
+    Amountofpayment, settlement.Creationtime as settlementCreationtime, settlement.Founder as settlementFounder, settlement.Updatetime as settlementUpdatetime, settlement.Updateperson as settlementUpdateperson, Postpone, Initialvalue,
+    Redescription, Enclosure,zhuangtai
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from closeanaccount
+    where zhujian = #{zhujian,jdbcType=INTEGER}
+  </select>
+  <!--查询所有数据-->
+  <select id="cloSelects" parameterType="com.six.dcsystem.Bean.Closeanaccount" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"></include> from closeanaccount
+  </select>
+
+  <!-- 多表联查的所有数据 -->
+  <select id="colsetSelect" parameterType="com.six.dcsystem.Bean.Closeanaccount" resultMap="CloSetMap">
+    select <include refid="BaseCol"/> from closeanaccount join settlement
+    where 1=1
+    <if test="settlement.ammeterid != null">
+      and settlement.Ammeterid = #{settlement.ammeterid,jdbcType=INTEGER}
+    </if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from closeanaccount
+    where zhujian = #{zhujian,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.six.dcsystem.Bean.Closeanaccount" >
+    insert into closeanaccount (zhujian, Tariffset, Checkid, 
+      Tollmeters, UnitPrice, Totalsum, 
+      Actualcost, Paymentmethod, invoices, 
+      Dutyparagraph, Corporatename, Contactse, 
+      Contacttelephone, Openingbank, Founder, 
+      Creationtime, Updateperson, Updatetime
+      )
+    values (#{zhujian,jdbcType=INTEGER}, #{tariffset,jdbcType=VARCHAR}, #{checkid,jdbcType=VARCHAR}, 
+      #{tollmeters,jdbcType=REAL}, #{unitprice,jdbcType=REAL}, #{totalsum,jdbcType=REAL}, 
+      #{actualcost,jdbcType=REAL}, #{paymentmethod,jdbcType=VARCHAR}, #{invoices,jdbcType=VARCHAR}, 
+      #{dutyparagraph,jdbcType=INTEGER}, #{corporatename,jdbcType=VARCHAR}, #{contactse,jdbcType=VARCHAR}, 
+      #{contacttelephone,jdbcType=INTEGER}, #{openingbank,jdbcType=VARCHAR}, #{founder,jdbcType=VARCHAR}, 
+      #{creationtime,jdbcType=TIMESTAMP}, #{updateperson,jdbcType=VARCHAR}, #{updatetime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.six.dcsystem.Bean.Closeanaccount" >
+    insert into closeanaccount
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="zhujian != null" >
+        zhujian,
+      </if>
+      <if test="tariffset != null" >
+        Tariffset,
+      </if>
+      <if test="checkid != null" >
+        Checkid,
+      </if>
+      <if test="tollmeters != null" >
+        Tollmeters,
+      </if>
+      <if test="unitprice != null" >
+        UnitPrice,
+      </if>
+      <if test="totalsum != null" >
+        Totalsum,
+      </if>
+      <if test="actualcost != null" >
+        Actualcost,
+      </if>
+      <if test="paymentmethod != null" >
+        Paymentmethod,
+      </if>
+      <if test="invoices != null" >
+        invoices,
+      </if>
+      <if test="dutyparagraph != null" >
+        Dutyparagraph,
+      </if>
+      <if test="corporatename != null" >
+        Corporatename,
+      </if>
+      <if test="contactse != null" >
+        Contactse,
+      </if>
+      <if test="contacttelephone != null" >
+        Contacttelephone,
+      </if>
+      <if test="openingbank != null" >
+        Openingbank,
+      </if>
+      <if test="founder != null" >
+        Founder,
+      </if>
+      <if test="creationtime != null" >
+        Creationtime,
+      </if>
+      <if test="updateperson != null" >
+        Updateperson,
+      </if>
+      <if test="updatetime != null" >
+        Updatetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="zhujian != null" >
+        #{zhujian,jdbcType=INTEGER},
+      </if>
+      <if test="tariffset != null" >
+        #{tariffset,jdbcType=VARCHAR},
+      </if>
+      <if test="checkid != null" >
+        #{checkid,jdbcType=VARCHAR},
+      </if>
+      <if test="tollmeters != null" >
+        #{tollmeters,jdbcType=REAL},
+      </if>
+      <if test="unitprice != null" >
+        #{unitprice,jdbcType=REAL},
+      </if>
+      <if test="totalsum != null" >
+        #{totalsum,jdbcType=REAL},
+      </if>
+      <if test="actualcost != null" >
+        #{actualcost,jdbcType=REAL},
+      </if>
+      <if test="paymentmethod != null" >
+        #{paymentmethod,jdbcType=VARCHAR},
+      </if>
+      <if test="invoices != null" >
+        #{invoices,jdbcType=VARCHAR},
+      </if>
+      <if test="dutyparagraph != null" >
+        #{dutyparagraph,jdbcType=INTEGER},
+      </if>
+      <if test="corporatename != null" >
+        #{corporatename,jdbcType=VARCHAR},
+      </if>
+      <if test="contactse != null" >
+        #{contactse,jdbcType=VARCHAR},
+      </if>
+      <if test="contacttelephone != null" >
+        #{contacttelephone,jdbcType=INTEGER},
+      </if>
+      <if test="openingbank != null" >
+        #{openingbank,jdbcType=VARCHAR},
+      </if>
+      <if test="founder != null" >
+        #{founder,jdbcType=VARCHAR},
+      </if>
+      <if test="creationtime != null" >
+        #{creationtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateperson != null" >
+        #{updateperson,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.six.dcsystem.Bean.Closeanaccount" >
+    update closeanaccount
+    <set >
+      <if test="tariffset != null" >
+        Tariffset = #{tariffset,jdbcType=VARCHAR},
+      </if>
+      <if test="checkid != null" >
+        Checkid = #{checkid,jdbcType=VARCHAR},
+      </if>
+      <if test="tollmeters != null" >
+        Tollmeters = #{tollmeters,jdbcType=REAL},
+      </if>
+      <if test="unitprice != null" >
+        UnitPrice = #{unitprice,jdbcType=REAL},
+      </if>
+      <if test="totalsum != null" >
+        Totalsum = #{totalsum,jdbcType=REAL},
+      </if>
+      <if test="actualcost != null" >
+        Actualcost = #{actualcost,jdbcType=REAL},
+      </if>
+      <if test="paymentmethod != null" >
+        Paymentmethod = #{paymentmethod,jdbcType=VARCHAR},
+      </if>
+      <if test="invoices != null" >
+        invoices = #{invoices,jdbcType=VARCHAR},
+      </if>
+      <if test="dutyparagraph != null" >
+        Dutyparagraph = #{dutyparagraph,jdbcType=INTEGER},
+      </if>
+      <if test="corporatename != null" >
+        Corporatename = #{corporatename,jdbcType=VARCHAR},
+      </if>
+      <if test="contactse != null" >
+        Contactse = #{contactse,jdbcType=VARCHAR},
+      </if>
+      <if test="contacttelephone != null" >
+        Contacttelephone = #{contacttelephone,jdbcType=INTEGER},
+      </if>
+      <if test="openingbank != null" >
+        Openingbank = #{openingbank,jdbcType=VARCHAR},
+      </if>
+      <if test="founder != null" >
+        Founder = #{founder,jdbcType=VARCHAR},
+      </if>
+      <if test="creationtime != null" >
+        Creationtime = #{creationtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateperson != null" >
+        Updateperson = #{updateperson,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        Updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where zhujian = #{zhujian,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.six.dcsystem.Bean.Closeanaccount" >
+    update closeanaccount
+    set Tariffset = #{tariffset,jdbcType=VARCHAR},
+      Checkid = #{checkid,jdbcType=VARCHAR},
+      Tollmeters = #{tollmeters,jdbcType=REAL},
+      UnitPrice = #{unitprice,jdbcType=REAL},
+      Totalsum = #{totalsum,jdbcType=REAL},
+      Actualcost = #{actualcost,jdbcType=REAL},
+      Paymentmethod = #{paymentmethod,jdbcType=VARCHAR},
+      invoices = #{invoices,jdbcType=VARCHAR},
+      Dutyparagraph = #{dutyparagraph,jdbcType=INTEGER},
+      Corporatename = #{corporatename,jdbcType=VARCHAR},
+      Contactse = #{contactse,jdbcType=VARCHAR},
+      Contacttelephone = #{contacttelephone,jdbcType=INTEGER},
+      Openingbank = #{openingbank,jdbcType=VARCHAR},
+      Founder = #{founder,jdbcType=VARCHAR},
+      Creationtime = #{creationtime,jdbcType=TIMESTAMP},
+      Updateperson = #{updateperson,jdbcType=VARCHAR},
+      Updatetime = #{updatetime,jdbcType=TIMESTAMP}
+    where zhujian = #{zhujian,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.six.dcsystem.Dao.RecordMapper">
+  <resultMap id="BaseResultMap" type="com.six.dcsystem.Bean.Record">
+    <id column="Recordid" jdbcType="INTEGER" property="recordid" />
+    <result column="Buyingtime" jdbcType="TIMESTAMP" property="buyingtime" />
+    <result column="initialAmmeternum" jdbcType="INTEGER" property="initialammeternum" />
+    <result column="Ammeterid" jdbcType="INTEGER" property="ammeterid" />
+    <result column="Termofvalidity" jdbcType="TIMESTAMP" property="termofvalidity" />
+    <result column="Manufacturer" jdbcType="VARCHAR" property="manufacturer" />
+    <result column="Model" jdbcType="VARCHAR" property="model" />
+    <result column="Factorytime" jdbcType="TIMESTAMP" property="factorytime" />
+    <result column="Cost" jdbcType="REAL" property="cost" />
+    <result column="Remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="Enclosure" jdbcType="VARCHAR" property="enclosure" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="Characteristic" jdbcType="VARCHAR" property="characteristic" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Recordid, Buyingtime, initialAmmeternum, Ammeterid, Termofvalidity, Manufacturer, 
+    Model, Factorytime, Cost, Remarks, Enclosure, type, Characteristic
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from record
+    where Recordid = #{recordid,jdbcType=INTEGER}
+  </select>
+  <!--查询所有数据-->
+  <select id="recordSelects" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"></include> from record;
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from record
+    where Recordid = #{recordid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.six.dcsystem.Bean.Record">
+    insert into record (Recordid, Buyingtime, initialAmmeternum, 
+      Ammeterid, Termofvalidity, Manufacturer, 
+      Model, Factorytime, Cost, 
+      Remarks, Enclosure, type, 
+      Characteristic)
+    values (#{recordid,jdbcType=INTEGER}, #{buyingtime,jdbcType=TIMESTAMP}, #{initialammeternum,jdbcType=INTEGER}, 
+      #{ammeterid,jdbcType=INTEGER}, #{termofvalidity,jdbcType=TIMESTAMP}, #{manufacturer,jdbcType=VARCHAR}, 
+      #{model,jdbcType=VARCHAR}, #{factorytime,jdbcType=TIMESTAMP}, #{cost,jdbcType=REAL}, 
+      #{remarks,jdbcType=VARCHAR}, #{enclosure,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{characteristic,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.six.dcsystem.Bean.Record">
+    insert into record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="recordid != null">
+        Recordid,
+      </if>
+      <if test="buyingtime != null">
+        Buyingtime,
+      </if>
+      <if test="initialammeternum != null">
+        initialAmmeternum,
+      </if>
+      <if test="ammeterid != null">
+        Ammeterid,
+      </if>
+      <if test="termofvalidity != null">
+        Termofvalidity,
+      </if>
+      <if test="manufacturer != null">
+        Manufacturer,
+      </if>
+      <if test="model != null">
+        Model,
+      </if>
+      <if test="factorytime != null">
+        Factorytime,
+      </if>
+      <if test="cost != null">
+        Cost,
+      </if>
+      <if test="remarks != null">
+        Remarks,
+      </if>
+      <if test="enclosure != null">
+        Enclosure,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="characteristic != null">
+        Characteristic,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="recordid != null">
+        #{recordid,jdbcType=INTEGER},
+      </if>
+      <if test="buyingtime != null">
+        #{buyingtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="initialammeternum != null">
+        #{initialammeternum,jdbcType=INTEGER},
+      </if>
+      <if test="ammeterid != null">
+        #{ammeterid,jdbcType=INTEGER},
+      </if>
+      <if test="termofvalidity != null">
+        #{termofvalidity,jdbcType=TIMESTAMP},
+      </if>
+      <if test="manufacturer != null">
+        #{manufacturer,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null">
+        #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="factorytime != null">
+        #{factorytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cost != null">
+        #{cost,jdbcType=REAL},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="enclosure != null">
+        #{enclosure,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="characteristic != null">
+        #{characteristic,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.six.dcsystem.Bean.Record">
+    update record
+    <set>
+      <if test="buyingtime != null">
+        Buyingtime = #{buyingtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="initialammeternum != null">
+        initialAmmeternum = #{initialammeternum,jdbcType=INTEGER},
+      </if>
+      <if test="ammeterid != null">
+        Ammeterid = #{ammeterid,jdbcType=INTEGER},
+      </if>
+      <if test="termofvalidity != null">
+        Termofvalidity = #{termofvalidity,jdbcType=TIMESTAMP},
+      </if>
+      <if test="manufacturer != null">
+        Manufacturer = #{manufacturer,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null">
+        Model = #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="factorytime != null">
+        Factorytime = #{factorytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cost != null">
+        Cost = #{cost,jdbcType=REAL},
+      </if>
+      <if test="remarks != null">
+        Remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="enclosure != null">
+        Enclosure = #{enclosure,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="characteristic != null">
+        Characteristic = #{characteristic,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Recordid = #{recordid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.six.dcsystem.Bean.Record">
+    update record
+    set Buyingtime = #{buyingtime,jdbcType=TIMESTAMP},
+      initialAmmeternum = #{initialammeternum,jdbcType=INTEGER},
+      Ammeterid = #{ammeterid,jdbcType=INTEGER},
+      Termofvalidity = #{termofvalidity,jdbcType=TIMESTAMP},
+      Manufacturer = #{manufacturer,jdbcType=VARCHAR},
+      Model = #{model,jdbcType=VARCHAR},
+      Factorytime = #{factorytime,jdbcType=TIMESTAMP},
+      Cost = #{cost,jdbcType=REAL},
+      Remarks = #{remarks,jdbcType=VARCHAR},
+      Enclosure = #{enclosure,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      Characteristic = #{characteristic,jdbcType=VARCHAR}
+    where Recordid = #{recordid,jdbcType=INTEGER}
+  </update>
+
+
+</mapper>

@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.six.dcsystem.Dao.SettlementMapper">
+  <resultMap id="BaseResultMap" type="com.six.dcsystem.Bean.Settlement">
+    <id column="SettlementKey" jdbcType="INTEGER" property="settlementkey" />
+    <result column="Settlementid" jdbcType="VARCHAR" property="settlementid" />
+    <result column="Ammeterid" jdbcType="INTEGER" property="ammeterid" />
+    <result column="Ammeternnum" jdbcType="INTEGER" property="ammeternnum" />
+    <result column="Ammeternnum25" jdbcType="INTEGER" property="ammeternnum25" />
+    <result column="UnitPrice" jdbcType="REAL" property="unitprice" />
+    <result column="Totalcost" jdbcType="REAL" property="totalcost" />
+    <result column="LastAccountbalance" jdbcType="REAL" property="lastaccountbalance" />
+    <result column="Amountofpayment" jdbcType="REAL" property="amountofpayment" />
+    <result column="Creationtime" jdbcType="TIMESTAMP" property="creationtime" />
+    <result column="Founder" jdbcType="VARCHAR" property="founder" />
+    <result column="Updatetime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="Updateperson" jdbcType="VARCHAR" property="updateperson" />
+    <result column="Postpone" jdbcType="VARCHAR" property="postpone" />
+    <result column="Initialvalue" jdbcType="REAL" property="initialvalue" />
+    <result column="Redescription" jdbcType="VARCHAR" property="redescription" />
+    <result column="Enclosure" jdbcType="VARCHAR" property="enclosure" />
+    <result column="zhuangtai" jdbcType="VARCHAR" property="zhuangtai"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    SettlementKey,Settlementid, Ammeterid, Ammeternnum, Ammeternnum25, UnitPrice, Totalcost, LastAccountbalance,
+    Amountofpayment, Creationtime, Founder, Updatetime, Updateperson, Postpone, Initialvalue, 
+    Redescription, Enclosure,zhuangtai
+  </sql>
+  <!-- 单条数据的查询 -->
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from settlement
+    where Settlementid = #{settlementid,jdbcType=VARCHAR}
+  </select>
+  <!--查询全部数据-->
+  <select id="setAll" parameterType="com.six.dcsystem.Bean.Settlement" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"></include> from settlement
+    where 1=1
+    <if test="zt != null">
+      and zhuangtai = #{zt,jdbcType=VARCHAR}
+    </if>
+    <if test="settlementid != null">
+      and Settlementid = #{settlementid,jdbcType=VARCHAR}
+    </if>
+  </select>
+  <!--模糊查询-->
+  <select id="limitset" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from settlement where Settlementid like '%${value}%'
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from settlement
+    where SettlementKey = #{settlementkey,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.six.dcsystem.Bean.Settlement">
+    insert into settlement (Settlementid, Ammeterid, Ammeternnum, 
+      Ammeternnum25, UnitPrice, Totalcost, 
+      LastAccountbalance, Amountofpayment, Creationtime, 
+      Founder, Updatetime, Updateperson, 
+      Postpone, Initialvalue, Redescription, 
+      Enclosure)
+    values (#{settlementid,jdbcType=VARCHAR}, #{ammeterid,jdbcType=INTEGER}, #{ammeternnum,jdbcType=INTEGER}, 
+      #{ammeternnum25,jdbcType=INTEGER}, #{unitprice,jdbcType=REAL}, #{totalcost,jdbcType=REAL}, 
+      #{lastaccountbalance,jdbcType=REAL}, #{amountofpayment,jdbcType=REAL}, #{creationtime,jdbcType=TIMESTAMP}, 
+      #{founder,jdbcType=VARCHAR}, #{updatetime,jdbcType=TIMESTAMP}, #{updateperson,jdbcType=VARCHAR}, 
+      #{postpone,jdbcType=VARCHAR}, #{initialvalue,jdbcType=REAL}, #{redescription,jdbcType=VARCHAR}, 
+      #{enclosure,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.six.dcsystem.Bean.Settlement">
+    insert into settlement
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="settlementid != null">
+        Settlementid,
+      </if>
+      <if test="ammeterid != null">
+        Ammeterid,
+      </if>
+      <if test="ammeternnum != null">
+        Ammeternnum,
+      </if>
+      <if test="ammeternnum25 != null">
+        Ammeternnum25,
+      </if>
+      <if test="unitprice != null">
+        UnitPrice,
+      </if>
+      <if test="totalcost != null">
+        Totalcost,
+      </if>
+      <if test="lastaccountbalance != null">
+        LastAccountbalance,
+      </if>
+      <if test="amountofpayment != null">
+        Amountofpayment,
+      </if>
+      <if test="creationtime != null">
+        Creationtime,
+      </if>
+      <if test="founder != null">
+        Founder,
+      </if>
+      <if test="updatetime != null">
+        Updatetime,
+      </if>
+      <if test="updateperson != null">
+        Updateperson,
+      </if>
+      <if test="postpone != null">
+        Postpone,
+      </if>
+      <if test="initialvalue != null">
+        Initialvalue,
+      </if>
+      <if test="redescription != null">
+        Redescription,
+      </if>
+      <if test="enclosure != null">
+        Enclosure,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="settlementid != null">
+        #{settlementid,jdbcType=VARCHAR},
+      </if>
+      <if test="ammeterid != null">
+        #{ammeterid,jdbcType=INTEGER},
+      </if>
+      <if test="ammeternnum != null">
+        #{ammeternnum,jdbcType=INTEGER},
+      </if>
+      <if test="ammeternnum25 != null">
+        #{ammeternnum25,jdbcType=INTEGER},
+      </if>
+      <if test="unitprice != null">
+        #{unitprice,jdbcType=REAL},
+      </if>
+      <if test="totalcost != null">
+        #{totalcost,jdbcType=REAL},
+      </if>
+      <if test="lastaccountbalance != null">
+        #{lastaccountbalance,jdbcType=REAL},
+      </if>
+      <if test="amountofpayment != null">
+        #{amountofpayment,jdbcType=REAL},
+      </if>
+      <if test="creationtime != null">
+        #{creationtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="founder != null">
+        #{founder,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateperson != null">
+        #{updateperson,jdbcType=VARCHAR},
+      </if>
+      <if test="postpone != null">
+        #{postpone,jdbcType=VARCHAR},
+      </if>
+      <if test="initialvalue != null">
+        #{initialvalue,jdbcType=REAL},
+      </if>
+      <if test="redescription != null">
+        #{redescription,jdbcType=VARCHAR},
+      </if>
+      <if test="enclosure != null">
+        #{enclosure,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <!-- 将数据进行归档 -->
+  <update id="updatezt" parameterType="com.six.dcsystem.Bean.Settlement">
+    update settlement set zhuangtai = #{zhuangtai,jdbcType=VARCHAR} where SettlementKey = #{settlementkey,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.six.dcsystem.Bean.Settlement">
+    update settlement
+    <set>
+      <if test="settlementid != null">
+        Settlementid = #{settlementid,jdbcType=VARCHAR},
+      </if>
+      <if test="ammeterid != null">
+        Ammeterid = #{ammeterid,jdbcType=INTEGER},
+      </if>
+      <if test="ammeternnum != null">
+        Ammeternnum = #{ammeternnum,jdbcType=INTEGER},
+      </if>
+      <if test="ammeternnum25 != null">
+        Ammeternnum25 = #{ammeternnum25,jdbcType=INTEGER},
+      </if>
+      <if test="unitprice != null">
+        UnitPrice = #{unitprice,jdbcType=REAL},
+      </if>
+      <if test="totalcost != null">
+        Totalcost = #{totalcost,jdbcType=REAL},
+      </if>
+      <if test="lastaccountbalance != null">
+        LastAccountbalance = #{lastaccountbalance,jdbcType=REAL},
+      </if>
+      <if test="amountofpayment != null">
+        Amountofpayment = #{amountofpayment,jdbcType=REAL},
+      </if>
+      <if test="creationtime != null">
+        Creationtime = #{creationtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="founder != null">
+        Founder = #{founder,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        Updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateperson != null">
+        Updateperson = #{updateperson,jdbcType=VARCHAR},
+      </if>
+      <if test="postpone != null">
+        Postpone = #{postpone,jdbcType=VARCHAR},
+      </if>
+      <if test="initialvalue != null">
+        Initialvalue = #{initialvalue,jdbcType=REAL},
+      </if>
+      <if test="redescription != null">
+        Redescription = #{redescription,jdbcType=VARCHAR},
+      </if>
+      <if test="enclosure != null">
+        Enclosure = #{enclosure,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SettlementKey = #{settlementkey,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.six.dcsystem.Bean.Settlement">
+    update settlement
+    set Settlementid = #{settlementid,jdbcType=VARCHAR},
+      Ammeterid = #{ammeterid,jdbcType=INTEGER},
+      Ammeternnum = #{ammeternnum,jdbcType=INTEGER},
+      Ammeternnum25 = #{ammeternnum25,jdbcType=INTEGER},
+      UnitPrice = #{unitprice,jdbcType=REAL},
+      Totalcost = #{totalcost,jdbcType=REAL},
+      LastAccountbalance = #{lastaccountbalance,jdbcType=REAL},
+      Amountofpayment = #{amountofpayment,jdbcType=REAL},
+      Creationtime = #{creationtime,jdbcType=TIMESTAMP},
+      Founder = #{founder,jdbcType=VARCHAR},
+      Updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      Updateperson = #{updateperson,jdbcType=VARCHAR},
+      Postpone = #{postpone,jdbcType=VARCHAR},
+      Initialvalue = #{initialvalue,jdbcType=REAL},
+      Redescription = #{redescription,jdbcType=VARCHAR},
+      Enclosure = #{enclosure,jdbcType=VARCHAR}
+    where SettlementKey = #{settlementkey,jdbcType=INTEGER}
+  </update>
+</mapper>

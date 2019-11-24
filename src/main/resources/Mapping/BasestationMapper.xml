@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace:将mapper层与dao层进行连接 -->
+<mapper namespace="com.six.dcsystem.Dao.BasestationMapper">
+  <!--将查询到的数据字段名与实体中属性名称保持一致-->
+  <resultMap id="BaseResultMap" type="com.six.dcsystem.Bean.Basestation">
+    <id column="Basestationid" jdbcType="INTEGER" property="basestationid" />
+    <result column="Basestationlocation" jdbcType="VARCHAR" property="basestationlocation" />
+    <result column="Installationtime" jdbcType="TIMESTAMP" property="installationtime" />
+    <result column="Ammeterid" jdbcType="INTEGER" property="ammeterid" />
+    <result column="InstallingContacts" jdbcType="VARCHAR" property="installingcontacts" />
+    <result column="Initialnum" jdbcType="REAL" property="initialnum" />
+    <result column="Overhaul" jdbcType="VARCHAR" property="overhaul" />
+    <result column="Remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="MainLineNumber" jdbcType="INTEGER" property="mainlinenumber" />
+    <result column="Termofvalidity" jdbcType="TIMESTAMP" property="termofvalidity" />
+    <result column="Closingdate" jdbcType="TIMESTAMP" property="closingdate" />
+  </resultMap>
+
+  <!--将要查询的字段分装到sql中-->
+  <sql id="Base_Column_List">
+    Basestationid, Basestationlocation, Installationtime, Ammeterid, InstallingContacts,
+    Initialnum, Overhaul, Remarks, MainLineNumber, Termofvalidity, Closingdate
+  </sql>
+
+  <!--根据主键查询-->
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from basestation
+    where Basestationid = #{basestationid,jdbcType=INTEGER}
+  </select>
+  <!--根据电表编号进行查询-->
+  <select id="selectAmmeterid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"></include>
+    from basestation where
+    Ammeterid = #{ammeterid,jdbcType=INTEGER}
+  </select>
+  <!--查询全部数据-->
+  <select id="BaseAdd" parameterType="com.six.dcsystem.Bean.Basestation" resultType="com.six.dcsystem.Bean.Basestation">
+    select <include refid="Base_Column_List"></include> from basestation
+    where 1=1
+    <if test="basestationlocation != null and basestationlocation != '' and basestationlocation != 'undefined'">
+      and Basestationlocation = #{basestationlocation,jdbcType=VARCHAR}
+    </if>
+    <if test="ammeterid != null">
+      and Ammeterid = #{ammeterid,jdbcType=INTEGER}
+    </if>
+  </select>
+  <!--模糊查询-->
+  <select id="likeDizhi" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/> FROM basestation where Basestationlocation LIKE '%${value}%'
+  </select>
+  <!-- 日期区间的查询 -->
+  <select id="Timequjian" parameterType="java.lang.Object" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from basestation where Termofvalidity between '${value}' and '${value}'
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from basestation
+    where Basestationid = #{basestationid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.six.dcsystem.Bean.Basestation">
+    insert into basestation (Basestationid, Basestationlocation,
+      Installationtime, Ammeterid, InstallingContacts, 
+      Initialnum, Overhaul, Remarks, 
+      MainLineNumber, Termofvalidity, Closingdate
+      )
+    values (#{basestationid,jdbcType=INTEGER}, #{basestationlocation,jdbcType=VARCHAR},
+      #{installationtime,jdbcType=TIMESTAMP}, #{ammeterid,jdbcType=INTEGER}, #{installingcontacts,jdbcType=VARCHAR}, 
+      #{initialnum,jdbcType=REAL}, #{overhaul,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, 
+      #{mainlinenumber,jdbcType=INTEGER}, #{termofvalidity,jdbcType=TIMESTAMP}, #{closingdate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.six.dcsystem.Bean.Basestation">
+    insert into basestation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="basestationid != null">
+        Basestationid,
+      </if>
+      <if test="basestationlocation != null">
+        Basestationlocation,
+      </if>
+      <if test="installationtime != null">
+        Installationtime,
+      </if>
+      <if test="ammeterid != null">
+        Ammeterid,
+      </if>
+      <if test="installingcontacts != null">
+        InstallingContacts,
+      </if>
+      <if test="initialnum != null">
+        Initialnum,
+      </if>
+      <if test="overhaul != null">
+        Overhaul,
+      </if>
+      <if test="remarks != null">
+        Remarks,
+      </if>
+      <if test="mainlinenumber != null">
+        MainLineNumber,
+      </if>
+      <if test="termofvalidity != null">
+        Termofvalidity,
+      </if>
+      <if test="closingdate != null">
+        Closingdate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="basestationid != null">
+        #{basestationid,jdbcType=INTEGER},
+      </if>
+      <if test="basestationlocation != null">
+        #{basestationlocation,jdbcType=VARCHAR},
+      </if>
+      <if test="installationtime != null">
+        #{installationtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ammeterid != null">
+        #{ammeterid,jdbcType=INTEGER},
+      </if>
+      <if test="installingcontacts != null">
+        #{installingcontacts,jdbcType=VARCHAR},
+      </if>
+      <if test="initialnum != null">
+        #{initialnum,jdbcType=REAL},
+      </if>
+      <if test="overhaul != null">
+        #{overhaul,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="mainlinenumber != null">
+        #{mainlinenumber,jdbcType=INTEGER},
+      </if>
+      <if test="termofvalidity != null">
+        #{termofvalidity,jdbcType=TIMESTAMP},
+      </if>
+      <if test="closingdate != null">
+        #{closingdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.six.dcsystem.Bean.Basestation">
+    update basestation
+    <set>
+      <if test="basestationlocation != null">
+        Basestationlocation = #{basestationlocation,jdbcType=VARCHAR},
+      </if>
+      <if test="installationtime != null">
+        Installationtime = #{installationtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ammeterid != null">
+        Ammeterid = #{ammeterid,jdbcType=INTEGER},
+      </if>
+      <if test="installingcontacts != null">
+        InstallingContacts = #{installingcontacts,jdbcType=VARCHAR},
+      </if>
+      <if test="initialnum != null">
+        Initialnum = #{initialnum,jdbcType=REAL},
+      </if>
+      <if test="overhaul != null">
+        Overhaul = #{overhaul,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        Remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="mainlinenumber != null">
+        MainLineNumber = #{mainlinenumber,jdbcType=INTEGER},
+      </if>
+      <if test="termofvalidity != null">
+        Termofvalidity = #{termofvalidity,jdbcType=TIMESTAMP},
+      </if>
+      <if test="closingdate != null">
+        Closingdate = #{closingdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where Basestationid = #{basestationid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.six.dcsystem.Bean.Basestation">
+    update basestation
+    set Basestationlocation = #{basestationlocation,jdbcType=VARCHAR},
+      Installationtime = #{installationtime,jdbcType=TIMESTAMP},
+      Ammeterid = #{ammeterid,jdbcType=INTEGER},
+      InstallingContacts = #{installingcontacts,jdbcType=VARCHAR},
+      Initialnum = #{initialnum,jdbcType=REAL},
+      Overhaul = #{overhaul,jdbcType=VARCHAR},
+      Remarks = #{remarks,jdbcType=VARCHAR},
+      MainLineNumber = #{mainlinenumber,jdbcType=INTEGER},
+      Termofvalidity = #{termofvalidity,jdbcType=TIMESTAMP},
+      Closingdate = #{closingdate,jdbcType=TIMESTAMP}
+    where Basestationid = #{basestationid,jdbcType=INTEGER}
+  </update>
+</mapper>
